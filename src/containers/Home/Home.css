@@ -1,3 +1,30 @@
 .home {
     padding: 20px 50px;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* Media queries */
+@media (min-width: 640px) {
+    .home {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .home .details {
+        margin: -10px 0 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .home {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1366px) {
+    .home {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }

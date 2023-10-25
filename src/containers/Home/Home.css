@@ -6,25 +6,25 @@
 
 /* Media queries */
 @media (min-width: 640px) {
-    .home {
+    .countries {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 40px;
     }
 
-    .home .details {
+    .countries .details {
         margin: -10px 0 0;
     }
 }
 
 @media (min-width: 992px) {
-    .home {
+    .countries {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
 @media (min-width: 1366px) {
-    .home {
+    .countries {
         grid-template-columns: repeat(4, 1fr);
     }
 }

@@ -9,7 +9,7 @@ const CountryCard = ({country}) => {
                 <div className="flag" style={{backgroundImage: `url(${flags['png']})`}}/>
                 <div className="details">
                     <h4 className="country-name">
-                        Name: <span>{name.common}</span>
+                        Name: <span>{name["official"]}</span>
                     </h4>
                     <h4>
                         Population: <span>{population.toLocaleString()}</span>

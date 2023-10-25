@@ -1,6 +1,7 @@
 article {
     transition: background-color 0.4s;
     box-shadow: 0 5px 10px hsla(200, 15%, 8%, 0.1);
+    cursor: pointer;
 }
 
 .flag {

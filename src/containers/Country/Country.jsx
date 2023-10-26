@@ -2,6 +2,10 @@ import React, {useState, useEffect} from "react"
 import {Link, useParams} from "react-router-dom"
 import "./Country.css"
 import {fetchCountryData} from "../../axios/api";
+import LoadingHandle from "../../components/LoadingHandle/LoadingHandle";
+import ErrorHandle from "../../components/ErrorHandle/ErrorHandle";
+import useLoading from "../../hooks/useLoading";
+import useError from "../../hooks/useError";
 
 const formatCurrency = (data) => {
     const currencyList = Object.values(data);
@@ -9,16 +13,80 @@ const formatCurrency = (data) => {
     return formattedCurrencies.join(', ');
 }
 
+const renderCountryDetails = (c) => {
+    const {
+        flag, flags, name, population, region, subregion, capital, tld, currencies, languages, borders
+    } = c
+
+    const commonName = name['common'] || ""
+    const officialName = name['official'] || ""
+
+    const leftDetailSections = [
+        {label: 'Official Name', value: officialName},
+        {label: 'Population', value: population.toLocaleString()},
+        {label: 'Region', value: region},
+        {label: 'Sub Region', value: subregion},
+        {label: 'Capital', value: capital},
+    ];
+
+    const rightDetailSections = [
+        {label: 'Top Level Domain', value: tld.join(', ')},
+        {label: 'Currencies', value: formatCurrency(currencies)},
+        {label: 'Languages', value: Object.values(languages).join(', ')},
+    ]
+
+    const renderDetailsSection = (section) => (
+        <div key={section.label}>
+            <h5>
+                {section.label}: <span>{section.value}</span>
+            </h5>
+        </div>
+    );
+
+    return (
+        <article key={flag}>
+            <div className="country-inner">
+                <div className="flag">
+                    <img src={flags['svg'] || ''} alt={commonName}/>
+                </div>
+                <div>
+                    <h2 className="common-name">{commonName}</h2>
+                    <div className="country-details">
+                        <div className="details-column">
+                            {leftDetailSections.map(renderDetailsSection)}
+                        </div>
+                        <div className="details-column">
+                            {rightDetailSections.map(renderDetailsSection)}
+                        </div>
+                    </div>
+                    {borders && borders.length > 0 && (
+                        <div className="borders">
+                            <h3>Border Countries: </h3>
+                            <span>{borders.join(', ')}</span>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </article>
+    );
+};
+
 const Country = () => {
     const [country, setCountry] = useState([])
+    const { loading, setLoading, handleLoading } = useLoading();
+    const { error, handleError } = useError();
+
     const {name} = useParams()
+
+
     useEffect(() => {
         if (name) {
             fetchCountryData(name).then(res => {
-                console.log(res.data)
-                setCountry(res.data)
+                setCountry(res.data);
+                handleLoading();
             }).catch(err => {
-                console.log(err)
+                setLoading(false);
+                handleError(err);
             })
         }
     }, [name])
@@ -28,63 +96,11 @@ const Country = () => {
                 <Link to="/" className="btn btn-back">
                     <i className="fas fa-arrow-left"></i> Back Home
                 </Link>
-                {country.map((c) => {
-                    const {
-                        flag, flags, name, population, region, subregion, capital, tld, currencies, languages
-                    } = c
-                    console.log(c)
 
-                    const commonName = name['common'] || ""
-                    const officialName = name['official'] || ""
-                    const borders = c['borders'] || []
+                {loading && <LoadingHandle/>}
+                {error && <ErrorHandle message={error}/>}
 
-                    return (<article key={flag}>
-                        <div className="country-inner">
-                            <div className="flag">
-                                <img src={flags['svg'] || ""} alt={commonName}/>
-                            </div>
-
-                            <div>
-                                <h2 className="common-name">{commonName}</h2>
-                                <div className="country-details">
-                                    <div>
-                                        <h5>
-                                            Official Name: <span>{officialName}</span>
-                                        </h5>
-                                        <h5>
-                                            Population: <span>{population.toLocaleString()}</span>
-                                        </h5>
-                                        <h5>
-                                            Region: <span>{region}</span>
-                                        </h5>
-                                        <h5>
-                                            Sub Region: <span>{subregion}</span>
-                                        </h5>
-                                        <h5>
-                                            Capital: <span>{capital}</span>{" "}
-                                        </h5>
-                                    </div>
-
-                                    <div>
-                                        <h5>
-                                            Top Level Domain: <span>{tld.join(', ')}</span>
-                                        </h5>
-                                        <h5>
-                                            Currencies: <span>{formatCurrency(currencies)}</span>
-                                        </h5>
-                                        <h5>
-                                            Languages: <span>{Object.values(languages).join(', ')}</span>
-                                        </h5>
-                                    </div>
-                                </div>
-                                {borders.length ? (<div className="borders">
-                                    <h3>Border Countries:  </h3>
-                                    <span>{borders.join(', ')}</span>
-                                </div>) : ""}
-                            </div>
-                        </div>
-                    </article>)
-                })}
+                {!loading && country.map((c) => renderCountryDetails(c))}
             </section>
         </>
     )

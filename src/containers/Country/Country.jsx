@@ -94,7 +94,9 @@ const Country = () => {
     return (<>
             <section className="country">
                 <Link to="/" className="btn btn-back">
-                    <i className="fas fa-arrow-left"></i> Back Home
+                    <button>
+                        <i className="fas fa-arrow-left"></i> Back Home
+                    </button>
                 </Link>
 
                 {loading && <LoadingHandle/>}

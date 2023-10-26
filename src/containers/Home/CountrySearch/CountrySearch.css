@@ -23,6 +23,10 @@
     color: #b2b2b2;
 }
 
+.form .visually-hidden {
+    display: none;
+}
+
 /* Media queries */
 @media (max-width: 992px) {
     .form {

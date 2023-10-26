@@ -4,12 +4,12 @@ import './CountryCard.css'
 const CountryCard = ({country}) => {
     const {name, flag, flags, population, region, capital} = country
     return (
-        <div className="country">
+        <div className="country-card">
             <article key={flag}>
                 <div className="flag" style={{backgroundImage: `url(${flags['png']})`}}/>
                 <div className="details">
                     <h4 className="country-name">
-                        Name: <span>{name["official"]}</span>
+                        Name: <span>{name["common"]}</span>
                     </h4>
                     <h4>
                         Population: <span>{population.toLocaleString()}</span>

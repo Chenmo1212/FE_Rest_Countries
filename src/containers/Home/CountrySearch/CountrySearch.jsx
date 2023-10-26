@@ -22,7 +22,7 @@ const debounce = (func, delay) => {
     };
 }
 
-const DELAY_TIME = 500;
+const DELAY_TIME = 300;
 
 const CountrySearch = ({
                            setSearchInput,

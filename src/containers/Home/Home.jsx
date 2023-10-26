@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react"
+import {Link} from "react-router-dom"
 import './Home.css'
 import {fetchAllCountries} from "../../axios/api";
 import CountryCard from "./CountryCard/CountryCard";
@@ -62,18 +63,19 @@ const Home = () => {
         {loading && <LoadingHandle/>}
         {error && <ErrorHandle message={error}/>}
 
-        {loading
-            ? <EmptySvg/>
-            : (<div className="countries">
+        {loading ? "" : filtered.length ? (<div className="countries">
                 {filtered.map((country, index) => {
                     const {flag} = country
+                    const commonName = country.name.common || "empty"
                     return (
-                        <div key={flag || index}>
-                            <CountryCard country={country}/>
-                        </div>
+                        <Link to={`/countries/${commonName}`} key={flag || index}>
+                            <div key={flag || index}>
+                                <CountryCard country={country}/>
+                            </div>
+                        </Link>
                     )
                 })}
-            </div>)}
+            </div>): <EmptySvg/>}
     </div>
 }
 

@@ -1,5 +1,6 @@
 import React from "react"
 import "./CountrySearch.css"
+import {fetchCountryData} from "../../../axios/api"
 
 /**
  * Used to limit a function to be executed only once if it is triggered continuously.
@@ -26,7 +27,9 @@ const DELAY_TIME = 300;
 
 const CountrySearch = ({
                            setSearchInput,
+                           setLoading,
                            setFiltered,
+                           handleError,
                            countries,
                        }) => {
     // Prevent page reload when submitting the form
@@ -39,13 +42,15 @@ const CountrySearch = ({
         setSearchInput(searchValue)
 
         if (searchValue) {
-            const filteredCountries = countries.filter((country) =>
-                Object.values(country.name["official"])
-                    .join("")
-                    .toLowerCase()
-                    .includes(searchValue.toLowerCase())
-            )
-            setFiltered(filteredCountries)
+            setLoading(true);
+            fetchCountryData(searchValue).then(res => {
+                setFiltered(res.data);
+                setLoading(false);
+            }).catch(err => {
+                handleError(err);
+                setFiltered([])
+                setLoading(false);
+            })
         } else {
             setFiltered(countries)
         }

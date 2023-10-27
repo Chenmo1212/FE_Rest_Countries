@@ -5,5 +5,5 @@ export const fetchAllCountries = () => {
 };
 
 export const fetchCountryData = (name) => {
-  return api.get(`/name/${name}?fullText=true`)
+  return api.get(`/country/${name}`)
 }

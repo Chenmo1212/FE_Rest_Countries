@@ -33,10 +33,10 @@ const Home = () => {
 
     return <div className="home">
         <CountrySearch
-            searchInput={searchInput}
             setSearchInput={setSearchInput}
+            setLoading={setLoading}
             setFiltered={setFiltered}
-            setCountries={setCountries}
+            handleError={handleError}
             countries={countries}
         />
 

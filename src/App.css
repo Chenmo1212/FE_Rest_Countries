@@ -2,6 +2,8 @@
     --bg-color: hsl(0, 0%, 98%);
     --article-color: hsl(0, 0%, 52%);
     --text-color: hsl(200, 15%, 8%);
+    --light-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    --shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
 
 * {
@@ -20,6 +22,12 @@ ul {
 
 a {
     text-decoration: none;
+}
+
+button {
+    background: none;
+    outline: none;
+    border: none;
 }
 
 .buttons {
@@ -42,11 +50,6 @@ a {
 .btn:hover {
     background-color: #fff;
     color: var(--bg-color);
-}
-
-.btn-light {
-    background-color: var(--article-color);
-    border: 2px solid var(--article-color);
 }
 
 body {

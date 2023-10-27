@@ -4,7 +4,7 @@ import {fetchAllCountries} from "../../axios/api";
 import CountryCard from "./CountryCard/CountryCard";
 import CountrySearch from "./CountrySearch/CountrySearch";
 import LoadingHandle from "../../components/LoadingHandle/LoadingHandle";
-import ErrorHandle from "../../components/ErrorHandler/ErrorHandle";
+import ErrorHandle from "../../components/ErrorHandle/ErrorHandle";
 import EmptySvg from "../../components/EmptySvg/EmptySvg";
 
 const EXTRA_LOADING_TIME = 300;

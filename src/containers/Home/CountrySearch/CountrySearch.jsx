@@ -22,7 +22,7 @@ const debounce = (func, delay) => {
     };
 }
 
-const DELAY_TIME = 500;
+const DELAY_TIME = 300;
 
 const CountrySearch = ({
                            setSearchInput,
@@ -57,6 +57,7 @@ const CountrySearch = ({
         <>
             <div className="search">
                 <form className="form" id="form" onSubmit={handleSubmit}>
+                    <label htmlFor="search" className="visually-hidden">Search Country</label>
                     <input
                         type="search"
                         name="search"
@@ -65,6 +66,7 @@ const CountrySearch = ({
                         placeholder="Search Country"
                         onChange={(e) => debouncedSearch(e.target.value)}
                     />
+                    <button type="submit" className="visually-hidden">Search</button>
                 </form>
             </div>
         </>

@@ -18,8 +18,8 @@ const EmptySvg = ({message = "Nothing found"}) => {
                     <div className="arm"></div>
                 </div>
                 <div className="sky">
-                    <div className="montain"></div>
-                    <div className="montain two"></div>
+                    <div className="mountain"></div>
+                    <div className="mountain two"></div>
                     <div className="sun"></div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 export const api = axios.create({
-  baseURL: "https://api.chenmo1212.cn/rest/",
+  baseURL: "https://rest-countries-1212-76fafe1fccdc.herokuapp.com/",
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
